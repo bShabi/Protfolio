@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben Shabi - Full Stack Developer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a192f;
+            color: #8892b0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #64ffda;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ccd6f6;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        .language-toggle {
+            background: transparent;
+            border: 1px solid #64ffda;
+            color: #64ffda;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .language-toggle:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            color: #64ffda;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-name {
+            color: #ccd6f6;
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            color: #8892b0;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            color: #ccd6f6;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            height: 1px;
+            width: 300px;
+            background: #233554;
+            margin-left: 20px;
+        }
+
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: #112240;
+            padding: 2rem;
+            border-radius: 4px;
+            transition: transform 0.3s;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .experience-title {
+            color: #ccd6f6;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-company {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: #112240;
+            padding: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .skill-category h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-list li::before {
+            content: "▹";
+            color: #64ffda;
+            margin-right: 10px;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .contact-title {
+            color: #64ffda;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-heading {
+            color: #ccd6f6;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-text {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 1px solid #64ffda;
+            color: #64ffda;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .contact-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        .project-card {
+            position: relative;
+            display: grid;
+            gap: 1rem;
+            background: #112240;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            color: #ccd6f6;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #ccd6f6;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: #64ffda;
+        }
+
+        .project-description {
+            color: #8892b0;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .project-tech-list li {
+            color: #64ffda;
+            font-size: 0.9rem;
+            font-family: monospace;
+        }
+
+        /* RTL Support for Projects */
+        .rtl .project-header {
+            flex-direction: row-reverse;
+        }
+
+        .rtl .project-links {
+            flex-direction: row-reverse;
+        }
+
+        /* Mobile Styles for Projects */
+        @media (max-width: 768px) {
+            .projects-grid {
+                gap: 2rem;
+            }
+
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+        }
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            background: #020c1b;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #8892b0;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #64ffda;
+        }
+
+        /* RTL Support */
+        .rtl {
+            direction: rtl;
+        }
+
+        .rtl .section-title::after {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+
+        .rtl .skill-list li::before {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hero-name {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 2rem;
+            }
+
+            .section-title::after {
+                width: 150px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+            
+        }
+               /* Contact Section */
+               .contact {
+            padding: 5rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        input, textarea {
+            padding: 0.8rem;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo" data-en="B.S" data-he="ב.ש">B.S</a>
+            <nav class="nav-links">
+                <a href="#about" data-en="About" data-he="אודות">About</a>
+                <a href="#experience" data-en="Experience" data-he="ניסיון">Experience</a>
+                <a href="#skills" data-en="Skills" data-he="כישורים">Skills</a>
+                <a href="#contact" data-en="Contact" data-he="צור קשר">Contact</a>
+                <button class="language-toggle" onclick="toggleLanguage()">EN | עב</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <p class="hero-title" data-en="Hi, my name is" data-he="היי, שמי">Hi, my name is</p>
+                    <h1 class="hero-name" data-en="Ben Shabi." data-he="בן שאבי.">Ben Shabi.</h1>
+                    <h2 class="hero-subtitle" data-en="I build things for the web." data-he="אני בונה דברים לאינטרנט.">
+                        I build things for the web.
+                    </h2>
+                    <p class="hero-description" data-en="I'm a full-stack developer specializing in building exceptional digital experiences." 
+                       data-he="אני מפתח פול-סטאק המתמחה בבניית חוויות דיגיטליות יוצאות דופן.">
+                        I'm a full-stack developer specializing in building exceptional digital experiences.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title" data-en="Experience" data-he="ניסיון">Experience</h2>
+                <div class="experience-grid">
+                    <div class="experience-card">
+                        <h3 class="experience-title">Full Stack Developer</h3>
+                        <p class="experience-company">Cellcom</p>
+                        <p class="experience-date">Apr 2022 - Present</p>
+                        <ul class="skill-list">
+                            <li>Development of web components for mobile and desktops</li>
+                            <li>Implemented React, SCSS, and Redux for interactive front-end experiences</li>
+                            <li>Worked with MongoDB and PostgreSQL databases</li>
+                            <li>Utilized Docker and Kubernetes for microservices</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card">
+                        <h3 class="experience-title">Full Stack Developer</h3>
+                        <p class="experience-company">Freelance</p>
+                        <p class="experience-date">May 2021 - Apr 2022</p>
+                        <ul class="skill-list">
+                            <li>Azure Integration - SAAS Platform development</li>
+                            <li>Front-end development using Next JS</li>
+                            <li>Custom blog development with React-Redux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title" data-en="Skills" data-he="כישורים">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <ul class="skill-list">
+                            <li>React</li>
+                            <li>JavaScript</li>
+                            <li>TypeScript</li>
+                            <li>HTML & CSS</li>
+                            <li>SCSS</li>
+                            <li>Bootstrap</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Backend</h3>
+                        <ul class="skill-list">
+                            <li>ASP.NET</li>
+                            <li>.NET 6</li>
+                            <li>MongoDB</li>
+                            <li>PostgreSQL</li>
+                            <li>Microservices</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Cloud & Tools</h3>
+                        <ul class="skill-list">
+                            <li>Azure</li>
+                            <li>Git</li>
+                            <li>Docker</li>
+                            <li>Kubernetes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title" data-en="Projects" data-he="פרויקטים">Projects</h2>
+                <div class="projects-grid">
+                    <!-- Azure Integration Project -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="/api/placeholder/600/400" alt="Azure Integration Platform" />
+                        </div>
+                        <div class="project-content">
+                            <div class="project-header">
+                                <h3 class="project-title" data-en="Azure Integration Platform" data-he="פלטפורמת אינטגרציה ל-Azure">
+                                    Azure Integration Platform
+                                </h3>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="project-link" aria-label="External Link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="project-description" data-en="SAAS Platform for managing subscribers within Azure DevOps. Built with Next.js and integrated with Azure services for seamless deployment and scaling." 
+                               data-he="פלטפורמת SAAS לניהול מנויים ב-Azure DevOps. נבנה באמצעות Next.js ומשולב עם שירותי Azure">
+                                SAAS Platform for managing subscribers within Azure DevOps. Built with Next.js and integrated with Azure services for seamless deployment and scaling.
+                            </p>
+                            <ul class="project-tech-list">
+                                <li>Next.js</li>
+                                <li>Azure</li>
+                                <li>React</li>
+                                <li>Node.js</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Hilo Student Project -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="/api/placeholder/600/400" alt="Hilo Student Platform" />
+                        </div>
+                        <div class="project-content">
+                            <div class="project-header">
+                                <h3 class="project-title" data-en="Hilo Student Platform" data-he="פלטפורמת Hilo Student">
+                                    Hilo Student Platform
+                                </h3>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="project-link" aria-label="External Link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="project-description" data-en="Custom blog platform connecting teachers and students worldwide. Features include real-time collaboration, content management, and interactive learning tools." 
+                               data-he="פלטפורמת בלוג המחברת מורים ותלמידים מכל העולם. כולל שיתוף פעולה בזמן אמת, ניהול תוכן וכלי למידה אינטראקטיביים.">
+                                Custom blog platform connecting teachers and students worldwide. Features include real-time collaboration, content management, and interactive learning tools.
+                            </p>
+                            <ul class="project-tech-list">
+                                <li>Next.js</li>
+                                <li>React-Redux</li>
+                                <li>Node.js</li>
+                                <li>MongoDB</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Football Tracking Project -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="/api/placeholder/600/400" alt="Football Player Tracking System" />
+                        </div>
+                        <div class="project-content">
+                            <div class="project-header">
+                                <h3 class="project-title" data-en="Football Player Tracking System" data-he="מערכת מעקב שחקני כדורגל">
+                                    Football Player Tracking System
+                                </h3>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="project-link" aria-label="External Link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="project-description" data-en="SaaS Platform for tracking football players' performance using electronic devices. Final project at Afeka College featuring real-time analytics and performance metrics." 
+                               data-he="פלטפורמת SaaS למעקב אחר ביצועי שחקני כדורגל באמצעות מכשירים אלקטרוניים. פרויקט גמר במכללת אפקה">
+                                SaaS Platform for tracking football players' performance using electronic devices. Final project at Afeka College featuring real-time analytics and performance metrics.
+                            </p>
+                            <ul class="project-tech-list">
+                                <li>.NET Core</li>
+                                <li>React</li>
+                                <li>PostgreSQL</li>
+                                <li>Azure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </section>
+ 
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://il.linkedin.com/in/ben-shabi-668681106" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:benshabi@outlook.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p data-en="Built by Ben Shabi" data-he="נבנה על ידי בן שאבי">Built by Ben Shabi</p>
+            <p>© 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = 'en';
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'he' : 'en';
+            document.body.classList.toggle('rtl', currentLanguage === 'he');
+            
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLanguage}`);
+            });
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
