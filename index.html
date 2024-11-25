@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <title>Ben Shabi - Full Stack Developer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+    --navy: #0a192f;
+    --light-navy: #112240;
+    --lightest-navy: #233554;
+    --slate: #8892b0;
+    --light-slate: #a8b2d1;
+    --lightest-slate: #ccd6f6;
+    --green: #64ffda;
+    --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
         * {
             margin: 0;
             padding: 0;
@@ -43,6 +56,128 @@
             align-items: center;
         }
 
+
+   /* Burger Menu Styles */
+./* Navigation and Burger Menu Styles */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.burger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.burger-line {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 5px 0;
+    background-color: #64ffda;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 20px;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Start off-screen */
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(10, 25, 47, 0.97);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: all 0.3s ease-in-out;
+        backdrop-filter: blur(10px);
+        z-index: 999;
+        display: flex !important; /* Override any other display properties */
+    }
+
+    .nav-links.active {
+        right: 0; /* Slide in from the right */
+    }
+
+    /* Burger Animation */
+    .burger.active .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .burger.active .burger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Nav Links Styles */
+    .nav-links a {
+        color: #ccd6f6;
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .nav-links .language-toggle {
+        margin-top: 2rem;
+    }
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+        @media (max-width: 768px) {
+            .burger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 100%;
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .language-toggle {
+                margin-top: 2rem;
+            }
+        }
         .logo {
             color: #64ffda;
             font-size: 1.5rem;
@@ -82,7 +217,7 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            height: 50vh;
             display: flex;
             align-items: center;
             padding-top: 80px;
@@ -119,7 +254,7 @@
 
         /* About Section */
         .section {
-            padding: 100px 0;
+            padding: 50px 0;
         }
 
         .section-title {
@@ -175,73 +310,204 @@
 
         /* Skills Section */
         .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
 
-        .skill-category {
-            background: #112240;
-            padding: 1.5rem;
-            border-radius: 4px;
-        }
+.skill-category {
+    background: linear-gradient(120deg, var(--light-navy), rgba(17, 34, 64, 0.95));
+    padding: 2rem;
+    border-radius: 4px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    transition: var(--transition);
+}
 
-        .skill-category h3 {
-            color: #64ffda;
-            margin-bottom: 1rem;
-        }
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+    border-color: rgba(100, 255, 218, 0.2);
+}
 
-        .skill-list {
-            list-style: none;
-        }
+.skill-category h3 {
+    color: var(--green);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
 
-        .skill-list li {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
+.skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-        .skill-list li::before {
-            content: "▹";
-            color: #64ffda;
-            margin-right: 10px;
-        }
+.skill-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: var(--slate);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.skill-list li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 14px;
+    line-height: 12px;
+    transition: all 0.2s ease;
+}
+
+.skill-list li:hover {
+    color: var(--green);
+    transform: translateX(5px);
+}
+
+.skill-list li:hover::before {
+    transform: scale(1.2);
+}
+
+/* RTL Support */
+.rtl .skill-list li {
+    padding-left: 0;
+    padding-right: 25px;
+}
+
+.rtl .skill-list li::before {
+    left: auto;
+    right: 0;
+}
+
+.rtl .skill-list li:hover {
+    transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skill-category {
+        padding: 1.5rem;
+    }
+}
 
         /* Contact Section */
-        .contact {
-            text-align: center;
-            padding: 150px 0;
-        }
-
-        .contact-title {
-            color: #64ffda;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-heading {
-            color: #ccd6f6;
-            font-size: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-text {
+        /* Contact Form Styles */
+        .contact-form {
             max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .contact-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 1px solid #64ffda;
-            color: #64ffda;
-            text-decoration: none;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--light-navy);
             border-radius: 4px;
-            transition: all 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
         }
 
-        .contact-button:hover {
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--lightest-slate);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--navy);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 4px;
+            color: var(--lightest-slate);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .cta-button {
+            background: transparent;
+            color: var(--green);
+            border: 1px solid var(--green);
+            border-radius: 4px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .cta-button:hover {
             background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Success/Error Messages */
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .form-message.success {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .form-message.error {
+            background: rgba(255, 100, 100, 0.1);
+            color: #ff6464;
+            border: 1px solid #ff6464;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--green);
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* RTL Support */
+        .rtl .form-group label {
+            text-align: right;
+        }
+
+        .rtl .form-message {
+            direction: rtl;
         }
         .projects-grid {
             display: grid;
@@ -435,26 +701,96 @@
             border-radius: 5px;
             width: 100%;
         }
+        /* Replace your existing burger and nav styles with these updated ones */
+.burger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Ensure burger stays above nav menu */
+    position: relative;
+}
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+.burger-line {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 5px 0;
+    background-color: #64ffda;
+    transition: all 0.3s ease-in-out;
+}
 
-        .cta-button:hover {
-            background-color: #0056b3;
-        }
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(10, 25, 47, 0.97);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: all 0.3s ease-in-out;
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        display: flex !important; /* Override any other display properties */
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    /* Burger Animation */
+    .burger.active .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .burger.active .burger-line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    /* Mobile Nav Links Styles */
+    .nav-links a {
+        color: #ccd6f6;
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .nav-links .language-toggle {
+        margin-top: 2rem;
+    }
+}
+
     </style>
 </head>
 <body>
     <header>
         <div class="container nav-container">
             <a href="#" class="logo" data-en="B.S" data-he="ב.ש">B.S</a>
+            <button class="burger" aria-label="Toggle menu" type="button">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
             <nav class="nav-links">
                 <a href="#about" data-en="About" data-he="אודות">About</a>
                 <a href="#experience" data-en="Experience" data-he="ניסיון">Experience</a>
@@ -581,7 +917,6 @@
                                 <li>Azure</li>
                                 <li>React</li>
                                 <li>Node.js</li>
-                                <li>MoongoDB</li>
                             </ul>
                         </div>
                     </div>
@@ -613,8 +948,7 @@
                                 <li>Next.js</li>
                                 <li>React-Redux</li>
                                 <li>Node.js</li>
-                                <li>MoongoDB</li>
-                                <li>Strapi-CMS</li>
+                                <li>MongoDB</li>
                             </ul>
                         </div>
                     </div>
@@ -643,9 +977,10 @@
                                 SaaS Platform for tracking football players' performance using electronic devices. Final project at Afeka College featuring real-time analytics and performance metrics.
                             </p>
                             <ul class="project-tech-list">
+                                <li>.NET Core</li>
                                 <li>React</li>
-                                <li>NodeJs</li>
-                                <li>MoongoDB</li>
+                                <li>PostgreSQL</li>
+                                <li>Azure</li>
                             </ul>
                         </div>
                     </div>
@@ -655,23 +990,28 @@
 
 
         <section id="contact" class="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <form class="contact-form">
+            <h2 class="section-title" data-en="Get In Touch" data-he="צור קשר">Get In Touch</h2>
+            <form id="contact-form" class="contact-form">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" required>
+                    <label for="name" data-en="Name" data-he="שם">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <label for="email" data-en="Email" data-he="אימייל">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" rows="5" required></textarea>
+                    <label for="message" data-en="Message" data-he="הודעה">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
-                <button type="submit" class="cta-button">Send Message</button>
+                <button type="submit" class="cta-button" data-en="Send Message" data-he="שלח הודעה">
+                    Send Message
+                    <span class="spinner" style="display: none;"></span>
+                </button>
+                <div id="form-message" class="form-message" style="display: none;"></div>
             </form>
         </section>
+        
  
 
 
@@ -691,28 +1031,138 @@
             <p>© 2024</p>
         </div>
     </footer>
-
     <script>
-        let currentLanguage = 'en';
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get DOM elements
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    const body = document.body;
+    const navLinks = document.querySelectorAll('.nav-links a');
+    let currentLanguage = 'en';
 
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'en' ? 'he' : 'en';
-            document.body.classList.toggle('rtl', currentLanguage === 'he');
-            
-            document.querySelectorAll('[data-en]').forEach(element => {
-                element.textContent = element.getAttribute(`data-${currentLanguage}`);
-            });
+    // Toggle menu function
+    function toggleMenu() {
+        burger.classList.toggle('active');
+        nav.classList.toggle('active');
+        body.classList.toggle('menu-open');
+    }
+
+    // Close menu function
+    function closeMenu() {
+        burger.classList.remove('active');
+        nav.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
+    // Burger click event
+    burger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('active') && 
+            !nav.contains(e.target) && 
+            !burger.contains(e.target)) {
+            closeMenu();
         }
+    });
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
+    // Close menu when clicking nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Language toggle function
+    window.toggleLanguage = function() {
+        currentLanguage = currentLanguage === 'en' ? 'he' : 'en';
+        document.body.classList.toggle('rtl', currentLanguage === 'he');
+        document.documentElement.setAttribute('lang', currentLanguage);
+        
+        document.querySelectorAll('[data-en]').forEach(element => {
+            element.textContent = element.getAttribute(`data-${currentLanguage}`);
+        });
+    };
+
+    // EmailJS initialization
+    emailjs.init("fZonou4lwG4i2yIzC");
+
+    // Handle form submission
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const button = this.querySelector('button');
+            const spinner = button.querySelector('.spinner');
+            const messageDiv = document.getElementById('form-message');
+            
+            button.disabled = true;
+            spinner.style.display = 'inline-block';
+            messageDiv.style.display = 'none';
+        
+            const templateParams = {
+                from_name: this.name.value,
+                from_email: this.email.value,
+                message: this.message.value,
+                to_name: 'Ben Shabi',
+                reply_to: this.email.value
+            };
+        
+            emailjs.send('benshabi', 'template_w2pyuqy', templateParams)
+                .then(function() {
+                    messageDiv.textContent = currentLanguage === 'en' ? 
+                        'Message sent successfully!' : 
+                        'ההודעה נשלחה בהצלחה!';
+                    messageDiv.className = 'form-message success';
+                    messageDiv.style.display = 'block';
+                    contactForm.reset();
+                })
+                .catch(function(error) {
+                    console.error('EmailJS Error:', error);
+                    messageDiv.textContent = currentLanguage === 'en' ? 
+                        'Failed to send message. Please try again.' : 
+                        'שליחת ההודעה נכשלה. אנא נסה שוב.';
+                    messageDiv.className = 'form-message error';
+                    messageDiv.style.display = 'block';
+                })
+                .finally(function() {
+                    button.disabled = false;
+                    spinner.style.display = 'none';
+                });
+        });
+    }
+
+    // GSAP animations
+    gsap.from('.logo', {
+        opacity: 0,
+        y: -20,
+        duration: 1,
+        ease: 'power4.out'
+    });
+
+    gsap.from('.nav-links a', {
+        y: -50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out'
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetElement = document.querySelector(this.getAttribute('href'));
+            if (targetElement) {
+                targetElement.scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
+            }
         });
-    </script>
+    });
+});
+        </script>
 </body>
 </html>
