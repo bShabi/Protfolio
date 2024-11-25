@@ -299,8 +299,8 @@ overflow: hidden;
 
 /* Skills Section */
 .skills-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+display: flex;
+justify-content: center;
 gap: 25px;
 margin-top: 50px;
 }
@@ -309,6 +309,7 @@ margin-top: 50px;
 background: linear-gradient(120deg, var(--light-navy), rgba(17, 34, 64, 0.95));
 padding: 2rem;
 border-radius: 4px;
+width: 33%;
 border: 1px solid rgba(100, 255, 218, 0.1);
 transition: var(--transition);
 }
