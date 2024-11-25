@@ -779,13 +779,125 @@
         margin-top: 2rem;
     }
 }
+/* Hero Section Styles */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 0;  /* Increased padding to ensure content is visible below header */
+    margin-top: 0;     /* Reset any margin */
+    position: relative; /* For proper stacking */
+}
+
+.hero-content {
+    max-width: 800px;
+    width: 100%;
+    z-index: 1;        /* Ensure content stays above any backgrounds */
+}
+
+.hero-title {
+    color: var(--green);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.hero-name {
+    color: var(--lightest-slate);
+    font-size: clamp(40px, 8vw, 80px); /* Responsive font size */
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    color: var(--slate);
+    font-size: clamp(30px, 6vw, 60px); /* Responsive font size */
+    line-height: 1.1;
+    margin: 1rem 0 2rem;
+}
+
+.hero-description {
+    color: var(--slate);
+    margin-top: 1.5rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .hero {
+        padding: 120px 0 80px; /* Adjusted padding for mobile */
+        min-height: 90vh;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+}
+
+/* RTL Support */
+.rtl .hero-content {
+    direction: rtl;
+    text-align: right;
+}
+/* CV Download Button Styles */
+.cv-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    padding: 1.25rem 1.75rem;
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 2rem;
+}
+
+.cv-button:hover {
+    background: rgba(100, 255, 218, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cv-button .icon {
+    font-size: 1.2rem;
+}
+
+/* RTL Support */
+.rtl .cv-button {
+    flex-direction: row-reverse;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .cv-button {
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
 
     </style>
 </head>
 <body>
     <header>
         <div class="container nav-container">
-            <a href="#" class="logo" data-en="B.S" data-he="ב.ש">B.S</a>
+            <button class="language-toggle" onclick="toggleLanguage()">EN | עב</button>
+
             <button class="burger" aria-label="Toggle menu" type="button">
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
@@ -796,7 +908,6 @@
                 <a href="#experience" data-en="Experience" data-he="ניסיון">Experience</a>
                 <a href="#skills" data-en="Skills" data-he="כישורים">Skills</a>
                 <a href="#contact" data-en="Contact" data-he="צור קשר">Contact</a>
-                <button class="language-toggle" onclick="toggleLanguage()">EN | עב</button>
             </nav>
         </div>
     </header>
@@ -806,16 +917,26 @@
             <div class="container">
                 <div class="hero-content">
                     <p class="hero-title" data-en="Hi, my name is" data-he="היי, שמי">Hi, my name is</p>
-                    <h1 class="hero-name" data-en="Ben Shabi." data-he="בן שאבי.">Ben Shabi.</h1>
-                    <h2 class="hero-subtitle" data-en="I build things for the web." data-he="אני בונה דברים לאינטרנט.">
-                        I build things for the web.
+                    <h1 class="hero-name" data-en="Ben Shabi" data-he="בן שאבי.">Ben Shabi</h1>
+                    <h2 class="hero-subtitle" data-en="Full-Stack web developer" data-he="אני בונה דברים לאינטרנט.">
+                        Full-Stack web developer.
                     </h2>
-                    <p class="hero-description" data-en="I'm a full-stack developer specializing in building exceptional digital experiences." 
-                       data-he="אני מפתח פול-סטאק המתמחה בבניית חוויות דיגיטליות יוצאות דופן.">
-                        I'm a full-stack developer specializing in building exceptional digital experiences.
-                    </p>
+                    <p class="hero-description" data-en="I am a highly motivated full-stack developer with strong self-learning abilities, passionate about technology and continuously expanding my skills." 
+                    data-he="מפתח פול-סטאק בכיר המתמחה בארכיטקטורות מדרגיות ופתרונות מבוססי ענן. מחויב למצוינות הנדסית עם מומחיות בשיטות פיתוח מודרניות וטכנולוגיות מתקדמות.">
+                    I'm a highly motivated full-stack developer with strong self-learning abilities, passionate about technology and continuously expanding my skills.              
+                          </p>
+                        <!-- Add this new button -->
+    <a href="/resume.pdf" 
+    class="cv-button" 
+    download="Ben_Shabi_CV.pdf"
+    data-en="Download CV" 
+    data-he="הורד קורות חיים">
+     <span>Download CV</span>
+     <i class="fas fa-download icon"></i>
+ </a>
                 </div>
             </div>
+            
         </section>
 
         <section id="experience" class="section">
@@ -899,14 +1020,14 @@
                                 <h3 class="project-title" data-en="Azure Integration Platform" data-he="פלטפורמת אינטגרציה ל-Azure">
                                     Azure Integration Platform
                                 </h3>
-                                <div class="project-links">
+                                <!-- <div class="project-links">
                                     <a href="#" class="project-link" aria-label="GitHub">
                                         <i class="fab fa-github"></i>
                                     </a>
                                     <a href="#" class="project-link" aria-label="External Link">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                             <p class="project-description" data-en="SAAS Platform for managing subscribers within Azure DevOps. Built with Next.js and integrated with Azure services for seamless deployment and scaling." 
                                data-he="פלטפורמת SAAS לניהול מנויים ב-Azure DevOps. נבנה באמצעות Next.js ומשולב עם שירותי Azure">
@@ -931,14 +1052,14 @@
                                 <h3 class="project-title" data-en="Hilo Student Platform" data-he="פלטפורמת Hilo Student">
                                     Hilo Student Platform
                                 </h3>
-                                <div class="project-links">
+                                <!-- <div class="project-links">
                                     <a href="#" class="project-link" aria-label="GitHub">
                                         <i class="fab fa-github"></i>
                                     </a>
                                     <a href="#" class="project-link" aria-label="External Link">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                             <p class="project-description" data-en="Custom blog platform connecting teachers and students worldwide. Features include real-time collaboration, content management, and interactive learning tools." 
                                data-he="פלטפורמת בלוג המחברת מורים ותלמידים מכל העולם. כולל שיתוף פעולה בזמן אמת, ניהול תוכן וכלי למידה אינטראקטיביים.">
@@ -963,14 +1084,14 @@
                                 <h3 class="project-title" data-en="Football Player Tracking System" data-he="מערכת מעקב שחקני כדורגל">
                                     Football Player Tracking System
                                 </h3>
-                                <div class="project-links">
+                                <!-- <div class="project-links">
                                     <a href="#" class="project-link" aria-label="GitHub">
                                         <i class="fab fa-github"></i>
                                     </a>
                                     <a href="#" class="project-link" aria-label="External Link">
                                         <i class="fas fa-external-link-alt"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                             <p class="project-description" data-en="SaaS Platform for tracking football players' performance using electronic devices. Final project at Afeka College featuring real-time analytics and performance metrics." 
                                data-he="פלטפורמת SaaS למעקב אחר ביצועי שחקני כדורגל באמצעות מכשירים אלקטרוניים. פרויקט גמר במכללת אפקה">
@@ -1162,6 +1283,28 @@
             }
         });
     });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // ... your existing DOMContentLoaded code ...
+
+    // CV Download tracking (optional)
+    const cvButton = document.querySelector('.cv-button');
+    if (cvButton) {
+        cvButton.addEventListener('click', function(e) {
+            // Optional: Track CV downloads
+            console.log('CV Downloaded');
+            
+            // Optional: Show feedback to user
+            const originalText = this.querySelector('span').textContent;
+            const downloadingText = currentLanguage === 'en' ? 'Downloading...' : 'מוריד...';
+            
+            this.querySelector('span').textContent = downloadingText;
+            
+            setTimeout(() => {
+                this.querySelector('span').textContent = originalText;
+            }, 2000);
+        });
+    }
 });
         </script>
 </body>
