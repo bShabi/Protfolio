@@ -43,12 +43,15 @@
                     data-he="מפתח פול-סטאק בכיר המתמחה בארכיטקטורות מדרגיות ופתרונות מבוססי ענן. מחויב למצוינות הנדסית עם מומחיות בשיטות פיתוח מודרניות וטכנולוגיות מתקדמות.">
                     I'm a highly motivated full-stack developer with strong self-learning abilities, passionate about technology and continuously expanding my skills.              
                           </p>
-                        <!-- Add this new button -->
-                        <a href="resume.pdf" class="cv-button" data-en="Download CV" download="Ben_Shabi_CV.pdf">
-                            <span>Download CV</span>
-                            <i class="fas fa-download icon"></i>
-                        </a>
 
+                          <a href="assets/resume.pdf" 
+                          class="cv-button" 
+                          download="Ben_Shabi_CV.pdf"
+                          data-en="Download CV" 
+                          data-he="הורד קורות חיים">
+                           <span>Download CV</span>
+                           <i class="fas fa-download icon"></i>
+                       </a>
                 </div>
             </div>
             
@@ -400,7 +403,46 @@
     });
 });
 document.addEventListener('DOMContentLoaded', function() {
-    // ... your existing DOMContentLoaded code ...
+    const cvButton = document.querySelector('.cv-button');
+    if (cvButton) {
+        cvButton.addEventListener('click', function(e) {
+            // If it's an external link (target="_blank"), don't show downloading message
+            if (this.hasAttribute('target')) {
+                return;
+            }
+            
+            // For local file downloads
+            const originalText = this.querySelector('span').textContent;
+            const downloadingText = currentLanguage === 'en' ? 'Downloading...' : 'מוריד...';
+            
+            this.querySelector('span').textContent = downloadingText;
+            
+            // Check if file exists
+            fetch(this.href)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('CV file not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    this.querySelector('span').textContent = 
+                        currentLanguage === 'en' ? 
+                        'CV not available' : 
+                        'קובץ לא זמין';
+                    
+                    setTimeout(() => {
+                        this.querySelector('span').textContent = originalText;
+                    }, 2000);
+                });
+
+            // Reset text after a delay
+            setTimeout(() => {
+                this.querySelector('span').textContent = originalText;
+            }, 2000);
+        });
+    }
+});    // ... your existing DOMContentLoaded code ...
 
     // CV Download tracking (optional)
     const cvButton = document.querySelector('.cv-button');
